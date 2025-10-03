@@ -1,22 +1,19 @@
 {
   "mappings": [
-    "/content/wknd-universal/language-masters/en:/",
-    "/content/wknd-universal/language-masters/en/:/en/",
-    "/content/wknd-universal/language-masters/fr/:/fr/",
-    "/content/wknd-universal/language-masters/fr:/fr",
-    "/content/wknd-universal/language-masters/es/:/es/",
-    "/content/wknd-universal/language-masters/es:/es",
-    "/content/wknd-universal/language-masters/ja/:/ja/",
-    "/content/wknd-universal/language-masters/ja:/ja",
-    "/content/wknd-universal/language-masters/de/:/de/",
-    "/content/wknd-universal/language-masters/de:/de",
-    "/content/wknd-universal/configuration:/.helix/config.json",
-    "/content/wknd-universal/metadata:/metadata.json",
-    "/content/wknd-universal/redirects:/redirects.json",
-    "/content/wknd-universal/placeholders:/placeholders.json"
+    "/content/automotive-ue/language-masters/en:/",
+    "/content/automotive-ue/language-masters/en/:/en/",
+    "/content/automotive-ue/language-masters/fr/:/fr/",
+    "/content/automotive-ue/language-masters/fr:/fr",
+    "/content/automotive-ue/language-masters/es/:/es/",
+    "/content/automotive-ue/language-masters/es:/es",
+    "/content/automotive-ue/language-masters/ja/:/ja/",
+    "/content/automotive-ue/language-masters/ja:/ja",
+    "/content/automotive-ue/language-masters/de/:/de/",
+    "/content/automotive-ue/language-masters/de:/de",
+    "/content/automotive-ue/configuration:/.helix/config.json",
+    "/content/automotive-ue/metadata:/metadata.json",
+    "/content/automotive-ue/redirects:/redirects.json",
+    "/content/automotive-ue/placeholders:/placeholders.json"
   ],
-  "includes": [
-    "/content/wknd-universal/",
-    "/content/dam/wknd-universal/"
-  ]
+  "includes": ["/content/automotive-ue/", "/content/dam/automotive-ue/"]
 }
