@@ -15,7 +15,7 @@ import {
   getMetadata,
   loadScript,
   toClassName,
-  toCamelCase
+  toCamelCase,
 } from './aem.js';
 import { picture, source, img } from './dom-helpers.js';
 
@@ -24,9 +24,8 @@ import {
   formatDate,
   setPageLanguage,
   PATH_PREFIX,
-  createSource
+  createSource,
 } from './utils.js';
-
 
 /**
  * Moves all the attributes from a given elmenet to another given element.
@@ -48,9 +47,9 @@ export function moveAttributes(from, to, attributes) {
 }
 
 export function isAuthorEnvironment() {
-  if(window?.location?.origin?.includes('author')){
+  if (window?.location?.origin?.includes('author')) {
     return true;
-  }else{
+  } else {
     return false;
   }
   /*
@@ -71,7 +70,10 @@ export function moveInstrumentation(from, to) {
     to,
     [...from.attributes]
       .map(({ nodeName }) => nodeName)
-      .filter((attr) => attr.startsWith('data-aue-') || attr.startsWith('data-richtext-')),
+      .filter(
+        (attr) =>
+          attr.startsWith('data-aue-') || attr.startsWith('data-richtext-')
+      )
   );
 }
 
@@ -79,9 +81,11 @@ export function moveInstrumentation(from, to) {
  * load fonts.css and set a session storage flag
  */
 async function loadFonts() {
+  await loadCSS(`${window.hlx.codeBasePath}/styles/fonts-latin-basic.css`);
   await loadCSS(`${window.hlx.codeBasePath}/styles/fonts.css`);
   try {
-    if (!window.location.hostname.includes('localhost')) sessionStorage.setItem('fonts-loaded', 'true');
+    if (!window.location.hostname.includes('localhost'))
+      sessionStorage.setItem('fonts-loaded', 'true');
   } catch (e) {
     // do nothing
   }
@@ -98,7 +102,10 @@ export async function fetchLanguagePlaceholders() {
     return await fetchPlaceholders(`${PATH_PREFIX}/${langCode}`);
   } catch (error) {
     // eslint-disable-next-line no-console
-    console.error(`Error fetching placeholders for lang: ${langCode}. Will try to get en placeholders`, error);
+    console.error(
+      `Error fetching placeholders for lang: ${langCode}. Will try to get en placeholders`,
+      error
+    );
     // Retry without specifying a language (using the default language)
     try {
       return await fetchPlaceholders(`${PATH_PREFIX}/en`);
@@ -136,10 +143,15 @@ function decorateButtons(main) {
         altT = JSON.parse(altT);
         const { altText, deliveryUrl } = altT;
         const url = new URL(deliveryUrl);
-        const imgName = url.pathname.substring(url.pathname.lastIndexOf('/') + 1);
+        const imgName = url.pathname.substring(
+          url.pathname.lastIndexOf('/') + 1
+        );
         const block = whatBlockIsThis(img);
         const bp = getMetadata(block);
-        let breakpoints = [{ media: '(min-width: 600px)', width: '2000' }, { width: '750' }];
+        let breakpoints = [
+          { media: '(min-width: 600px)', width: '2000' },
+          { width: '750' },
+        ];
         if (bp) {
           const bps = bp.split('|');
           const bpS = bps.map((b) => b.split(',').map((p) => p.trim()));
@@ -159,11 +171,14 @@ function decorateButtons(main) {
             const [a, b] = i.split('=');
             formatObj[a] = b;
           });
-          breakpoints = breakpoints.map((n) => (
-            { ...n, ...formatObj }
-          ));
+          breakpoints = breakpoints.map((n) => ({ ...n, ...formatObj }));
         }
-        const picture = createOptimizedPicture(deliveryUrl, altText, false, breakpoints);
+        const picture = createOptimizedPicture(
+          deliveryUrl,
+          altText,
+          false,
+          breakpoints
+        );
         img.parentElement.replaceWith(picture);
       } catch (error) {
         img.setAttribute('style', 'border:5px solid red');
@@ -190,9 +205,7 @@ export function decorateMain(main) {
   decorateDMImages(main);
 }
 
-
 async function renderWBDataLayer() {
-  
   //const config = await fetchPlaceholders();
   const lastPubDateStr = getMetadata('published-time');
   const firstPubDateStr = getMetadata('content_date') || lastPubDateStr;
@@ -300,7 +313,6 @@ async function loadLazy(doc) {
   loadFonts();
 }
 
-
 /**
  * Decorates Dynamic Media images by modifying their URLs to include specific parameters
  * and creating a <picture> element with different sources for different image formats and sizes.
@@ -311,63 +323,95 @@ export function decorateDMImages(main) {
   main.querySelectorAll('a[href^="https://delivery-p"]').forEach((a) => {
     const url = new URL(a.href.split('?')[0]);
     if (url.hostname.endsWith('.adobeaemcloud.com')) {
-
-        const blockBeingDecorated = whatBlockIsThis(a);
-        let blockName = '';
-        let rotate = '';
-        let flip = '';
-        let crop = '';
-        if(blockBeingDecorated){
-            blockName = Array.from(blockBeingDecorated.classList).find(className => className !== 'block');
-        }
-        if(blockName && blockName === 'dynamicmedia-image'){
-          rotate = blockBeingDecorated?.children[3]?.textContent?.trim();
-          flip = blockBeingDecorated?.children[4]?.textContent?.trim();
-          crop = blockBeingDecorated?.children[5]?.textContent?.trim();
-        }
-
-        const uuidPattern = /([a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})/i;
-        const match = url.href?.match(uuidPattern);
-        let aliasname = '';
-        if (!match) {
-            throw new Error('No asset UUID found in URL');
-        }else{
-          aliasname = match[1];
-        }
-        let hrefWOExtn =  url.href?.substring(0, url.href?.lastIndexOf('.'))?.replace(/\/original\/(?=as\/)/, '/');
-        const pictureEl = picture(
-          source({ 
-              srcset: `${hrefWOExtn}.webp?width=1400&quality=85&preferwebp=true${rotate ? '&rotate=' + rotate : ''}${flip ? '&flip=' + flip.toLowerCase() : ''}${crop ? '&crop=' + crop.toLowerCase() : ''}`, 
-              type: 'image/webp', 
-              media: '(min-width: 992px)' 
-          }),
-          source({ 
-              srcset: `${hrefWOExtn}.webp?width=1320&quality=85&preferwebp=true${rotate ? '&rotate=' + rotate : ''}${flip ? '&flip=' + flip.toLowerCase() : ''}${crop ? '&crop=' + crop.toLowerCase() : ''}`, 
-              type: 'image/webp', 
-              media: '(min-width: 768px)' 
-          }),
-          source({ 
-              srcset: `${hrefWOExtn}.webp?width=780&quality=85&preferwebp=true${rotate ? '&rotate=' + rotate : ''}${flip ? '&flip=' + flip.toLowerCase() : ''}${crop ? '&crop=' + crop.toLowerCase() : ''}`, 
-              type: 'image/webp', 
-              media: '(min-width: 320px)' 
-          }),
-          source({ 
-              srcset: `${hrefWOExtn}.webp?width=1400&quality=85${rotate ? '&rotate=' + rotate : ''}${flip ? '&flip=' + flip.toLowerCase() : ''}${crop ? '&crop=' + crop.toLowerCase() : ''}`, 
-              media: '(min-width: 992px)' 
-          }),
-          source({ 
-              srcset: `${hrefWOExtn}.webp?width=1320&quality=85${rotate ? '&rotate=' + rotate : ''}${flip ? '&flip=' + flip.toLowerCase() : ''}${crop ? '&crop=' + crop.toLowerCase() : ''}`, 
-              media: '(min-width: 768px)' 
-          }),
-          source({ 
-              srcset: `${hrefWOExtn}.webp?width=780&quality=85${rotate ? '&rotate=' + rotate : ''}${flip ? '&flip=' + flip.toLowerCase() : ''}${crop ? '&crop=' + crop.toLowerCase() : ''}`, 
-              media: '(min-width: 320px)' 
-          }),
-          img({ 
-              src: `${hrefWOExtn}.webp?width=1400&quality=85${rotate ? '&rotate=' + rotate : ''}${flip ? '&flip=' + flip.toLowerCase() : ''}${crop ? '&crop=' + crop.toLowerCase() : ''}`, 
-              alt: a.innerText 
-          }),
+      const blockBeingDecorated = whatBlockIsThis(a);
+      let blockName = '';
+      let rotate = '';
+      let flip = '';
+      let crop = '';
+      if (blockBeingDecorated) {
+        blockName = Array.from(blockBeingDecorated.classList).find(
+          (className) => className !== 'block'
         );
+      }
+      if (blockName && blockName === 'dynamicmedia-image') {
+        rotate = blockBeingDecorated?.children[3]?.textContent?.trim();
+        flip = blockBeingDecorated?.children[4]?.textContent?.trim();
+        crop = blockBeingDecorated?.children[5]?.textContent?.trim();
+      }
+
+      const uuidPattern =
+        /([a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})/i;
+      const match = url.href?.match(uuidPattern);
+      let aliasname = '';
+      if (!match) {
+        throw new Error('No asset UUID found in URL');
+      } else {
+        aliasname = match[1];
+      }
+      let hrefWOExtn = url.href
+        ?.substring(0, url.href?.lastIndexOf('.'))
+        ?.replace(/\/original\/(?=as\/)/, '/');
+      const pictureEl = picture(
+        source({
+          srcset: `${hrefWOExtn}.webp?width=1400&quality=85&preferwebp=true${
+            rotate ? '&rotate=' + rotate : ''
+          }${flip ? '&flip=' + flip.toLowerCase() : ''}${
+            crop ? '&crop=' + crop.toLowerCase() : ''
+          }`,
+          type: 'image/webp',
+          media: '(min-width: 992px)',
+        }),
+        source({
+          srcset: `${hrefWOExtn}.webp?width=1320&quality=85&preferwebp=true${
+            rotate ? '&rotate=' + rotate : ''
+          }${flip ? '&flip=' + flip.toLowerCase() : ''}${
+            crop ? '&crop=' + crop.toLowerCase() : ''
+          }`,
+          type: 'image/webp',
+          media: '(min-width: 768px)',
+        }),
+        source({
+          srcset: `${hrefWOExtn}.webp?width=780&quality=85&preferwebp=true${
+            rotate ? '&rotate=' + rotate : ''
+          }${flip ? '&flip=' + flip.toLowerCase() : ''}${
+            crop ? '&crop=' + crop.toLowerCase() : ''
+          }`,
+          type: 'image/webp',
+          media: '(min-width: 320px)',
+        }),
+        source({
+          srcset: `${hrefWOExtn}.webp?width=1400&quality=85${
+            rotate ? '&rotate=' + rotate : ''
+          }${flip ? '&flip=' + flip.toLowerCase() : ''}${
+            crop ? '&crop=' + crop.toLowerCase() : ''
+          }`,
+          media: '(min-width: 992px)',
+        }),
+        source({
+          srcset: `${hrefWOExtn}.webp?width=1320&quality=85${
+            rotate ? '&rotate=' + rotate : ''
+          }${flip ? '&flip=' + flip.toLowerCase() : ''}${
+            crop ? '&crop=' + crop.toLowerCase() : ''
+          }`,
+          media: '(min-width: 768px)',
+        }),
+        source({
+          srcset: `${hrefWOExtn}.webp?width=780&quality=85${
+            rotate ? '&rotate=' + rotate : ''
+          }${flip ? '&flip=' + flip.toLowerCase() : ''}${
+            crop ? '&crop=' + crop.toLowerCase() : ''
+          }`,
+          media: '(min-width: 320px)',
+        }),
+        img({
+          src: `${hrefWOExtn}.webp?width=1400&quality=85${
+            rotate ? '&rotate=' + rotate : ''
+          }${flip ? '&flip=' + flip.toLowerCase() : ''}${
+            crop ? '&crop=' + crop.toLowerCase() : ''
+          }`,
+          alt: a.innerText,
+        })
+      );
       a.replaceWith(pictureEl);
     }
   });
@@ -377,7 +421,8 @@ function whatBlockIsThis(element) {
   let currentElement = element;
 
   while (currentElement.parentElement) {
-    if (currentElement.parentElement.classList.contains('block')) return currentElement.parentElement;
+    if (currentElement.parentElement.classList.contains('block'))
+      return currentElement.parentElement;
     currentElement = currentElement.parentElement;
     if (currentElement.classList.length > 0) return currentElement.classList[0];
   }
