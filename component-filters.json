@@ -1,9 +1,7 @@
 [
   {
     "id": "main",
-    "components": [
-      "section"
-    ]
+    "components": ["section"]
   },
   {
     "id": "section",
@@ -29,32 +27,25 @@
       "form",
       "forex",
       "accordion",
-      "embed-adaptive-form"
+      "embed-adaptive-form",
+      "timeline"
     ]
   },
   {
     "id": "accordion",
-    "components": [
-      "accordion-item"
-    ]
+    "components": ["accordion-item"]
   },
   {
     "id": "cards",
-    "components": [
-      "card"
-    ]
+    "components": ["card"]
   },
   {
     "id": "carousel",
-    "components": [
-      "card"
-    ]
+    "components": ["card"]
   },
   {
     "id": "columns",
-    "components": [
-      "column"
-    ]
+    "components": ["column"]
   },
   {
     "id": "column",
@@ -63,7 +54,7 @@
       "dm-asset",
       "dm-template",
       "image",
-      "text",      
+      "text",
       "title",
       "video",
       "separator"
@@ -98,5 +89,9 @@
       "wizard",
       "range"
     ]
+  },
+  {
+    "id": "timeline",
+    "components": ["timeline-item"]
   }
 ]

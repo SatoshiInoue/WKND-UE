@@ -40,7 +40,7 @@
         "required": true,
         "label": "Date Of Content creation"
       },
-       {
+      {
         "component": "text",
         "valueType": "string",
         "name": "hostname",
@@ -53,42 +53,42 @@
         "name": "author",
         "label": "Author"
       },
-      {          
+      {
         "component": "aem-content",
         "name": "theme_cf_reference",
         "label": "Brand Theme",
         "description": "Select the CF with authored values for the brand theme. This will be applied on the pages",
         "valueType": "string",
         "validation": {
-            "rootPath": "/content/dam"
+          "rootPath": "/content/dam"
         }
       },
       {
-          "component": "select",
-          "name": "theme",
-          "label": "Theme",
-          "options": [
-            {
-              "name": "default",
-              "value": ""
-            },
-            {
-              "name": "Gray Theme",
-              "value": "gray-theme"
-            },
-            {
-              "name": "Red Theme",
-              "value": "red-theme"
-            },
-            {
-              "name": "Blue Theme",
-              "value": "blue-theme"
-            },
-             {
-              "name": "Green Theme",
-              "value": "green-theme"
-            }
-          ]
+        "component": "select",
+        "name": "theme",
+        "label": "Theme",
+        "options": [
+          {
+            "name": "default",
+            "value": ""
+          },
+          {
+            "name": "Gray Theme",
+            "value": "gray-theme"
+          },
+          {
+            "name": "Red Theme",
+            "value": "red-theme"
+          },
+          {
+            "name": "Blue Theme",
+            "value": "blue-theme"
+          },
+          {
+            "name": "Green Theme",
+            "value": "green-theme"
+          }
+        ]
       },
       {
         "component": "text",
@@ -358,7 +358,7 @@
           {
             "name": "Light Color",
             "value": "bg-light"
-          }         
+          }
         ]
       },
       {
@@ -426,7 +426,7 @@
         "name": "ctastyle",
         "label": "CTA Style",
         "options": [
-         {
+          {
             "name": "Link",
             "value": "cta-link"
           },
@@ -485,7 +485,7 @@
         "label": "Link",
         "multi": false,
         "validation": {
-            "rootPath": "/content"
+          "rootPath": "/content"
         }
       },
       {
@@ -537,16 +537,16 @@
         "valueType": "string",
         "required": true,
         "validation": {
-            "rootPath": "/content/dam"
+          "rootPath": "/content/dam"
         }
       },
       {
-         "component": "text",
-          "name": "variation",
-          "value": "",
-          "label": "Variation",
-          "valueType": "string",
-          "description": "Provide variation name to retrieve the CF content. If left empty, by default master variation will be used."
+        "component": "text",
+        "name": "variation",
+        "value": "",
+        "label": "Variation",
+        "valueType": "string",
+        "description": "Provide variation name to retrieve the CF content. If left empty, by default master variation will be used."
       },
       {
         "component": "select",
@@ -599,7 +599,7 @@
         "name": "ctastyle",
         "label": "CTA Style",
         "options": [
-         {
+          {
             "name": "Link",
             "value": "cta-link"
           },
@@ -644,12 +644,12 @@
         "valueType": "string"
       },
       {
-            "component": "boolean",
-            "label": "Enable Underline in Title",
-            "description": "Enable underline in title",
-            "name": "enableunderline",
-            "value": "true",
-            "valueType": "boolean"
+        "component": "boolean",
+        "label": "Enable Underline in Title",
+        "description": "Enable underline in title",
+        "name": "enableunderline",
+        "value": "true",
+        "valueType": "boolean"
       },
       {
         "component": "select",
@@ -733,180 +733,180 @@
   {
     "id": "dm-asset",
     "fields": [
-        {
-          "component": "select",
-          "name": "delivery_Type",
-          "value": "na",
-          "label": "Delivery Type",
-          "description": "'Dynamic Media' will be rendered by providing dynamic media server URL. 'Dynamic Media with OpenAPI' will use openAPI delivery with additional options to manipulate the image rendering on the fly.",
-          "valueType": "string",
-          "options": [
-            {
-              "name": "--Select Delivery Type--",
-              "value": "na"
-            },
-            {
-              "name": "Dynamic Media",
-              "value": "dm"
-            },
-            {
-              "name": "Dynamic Media with OpenAPI",
-              "value": "dm-openapi"
-            }
-          ]
-        },
-        {
-          "component": "reference",
-          "valueType": "string",
-          "name": "image",
-          "label": "Image",
-          "multi": false,
-          "description": "Select AEM DAM repository from asset selector if using Delivery Type as Dynamic Media. Select DM delivery repository from asset selector if using Delivery Type as Dynamic Media with OpenAPI",
-          "required": true
-        },        
-        {
-          "condition": {
-            "===": [{ "var": "delivery_Type" }, "dm"]
+      {
+        "component": "select",
+        "name": "delivery_Type",
+        "value": "na",
+        "label": "Delivery Type",
+        "description": "'Dynamic Media' will be rendered by providing dynamic media server URL. 'Dynamic Media with OpenAPI' will use openAPI delivery with additional options to manipulate the image rendering on the fly.",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "--Select Delivery Type--",
+            "value": "na"
           },
-            "component": "text",
-            "name": "dmUrl",
-            "value": "https://smartimaging.scene7.com/is/image/DynamicMediaNA",
-            "label": "Dynamic Media URL",
-            "valueType": "string"
-        },
-        {
-          "condition": {
-            "===": [{ "var": "delivery_Type" }, "dm-openapi"]
+          {
+            "name": "Dynamic Media",
+            "value": "dm"
           },
-          "component": "select",
-          "name": "rotation",
-          "value": "",
-          "label": "Rotation",
-          "description": "Select the rotation which will rotate the image.",
-          "valueType": "string",
-          "options": [
-            {
-              "name": "None",
-              "value": ""
-            },
-            {
-              "name": "30",
-              "value": "30"
-            },
-            {
-              "name": "45",
-              "value": "45"
-            },
-            {
-              "name": "60",
-              "value": "60"
-            },
-            {
-              "name": "90",
-              "value": "90"
-            },
-            {
-              "name": "120",
-              "value": "120"
-            },
-            {
-              "name": "160",
-              "value": "160"
-            },
-            {
-              "name": "180",
-              "value": "180"
-            },
-            {
-              "name": "230",
-              "value": "230"
-            },
-            {
-              "name": "270",
-              "value": "270"
-            },
-            {
-              "name": "300",
-              "value": "300"
-            },
-            {
-              "name": "330",
-              "value": "330"
-            }
-          ]
+          {
+            "name": "Dynamic Media with OpenAPI",
+            "value": "dm-openapi"
+          }
+        ]
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false,
+        "description": "Select AEM DAM repository from asset selector if using Delivery Type as Dynamic Media. Select DM delivery repository from asset selector if using Delivery Type as Dynamic Media with OpenAPI",
+        "required": true
+      },
+      {
+        "condition": {
+          "===": [{ "var": "delivery_Type" }, "dm"]
         },
-        {
-          "condition": {
-            "===": [{ "var": "delivery_Type" }, "dm-openapi"]
+        "component": "text",
+        "name": "dmUrl",
+        "value": "https://smartimaging.scene7.com/is/image/DynamicMediaNA",
+        "label": "Dynamic Media URL",
+        "valueType": "string"
+      },
+      {
+        "condition": {
+          "===": [{ "var": "delivery_Type" }, "dm-openapi"]
+        },
+        "component": "select",
+        "name": "rotation",
+        "value": "",
+        "label": "Rotation",
+        "description": "Select the rotation which will rotate the image.",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "None",
+            "value": ""
           },
-          "component": "select",
-          "name": "flip",
-          "value": "",
-          "label": "Flip",
-          "description": "Select the flip for the image either vertical or horizontal or vertical & horizontal",
-          "valueType": "string",
-          "options": [
-            {
-              "name": "None",
-              "value": ""
-            },
-            {
-              "name": "Vertical",
-              "value": "v"
-            },
-            {
-              "name": "Horizontal",
-              "value": "h"
-            },
-            {
-              "name": "Horizontal & Vertical",
-              "value": "hv"
-            }
-          ]
-        },
-        {
-          "condition": {
-            "===": [{ "var": "delivery_Type" }, "dm-openapi"]
+          {
+            "name": "30",
+            "value": "30"
           },
-          "component": "text",
-          "name": "crop",
-          "value": "",
-          "label": "Crop",
-          "description": "Crop the final image using four values: left, top, width, and height, all in percentages. For example, 10p,10p,50p,50p means crop the image starting 10% from the left and top, and take 50% of the image's width and height.",
-          "valueType": "string"
+          {
+            "name": "45",
+            "value": "45"
+          },
+          {
+            "name": "60",
+            "value": "60"
+          },
+          {
+            "name": "90",
+            "value": "90"
+          },
+          {
+            "name": "120",
+            "value": "120"
+          },
+          {
+            "name": "160",
+            "value": "160"
+          },
+          {
+            "name": "180",
+            "value": "180"
+          },
+          {
+            "name": "230",
+            "value": "230"
+          },
+          {
+            "name": "270",
+            "value": "270"
+          },
+          {
+            "name": "300",
+            "value": "300"
+          },
+          {
+            "name": "330",
+            "value": "330"
+          }
+        ]
+      },
+      {
+        "condition": {
+          "===": [{ "var": "delivery_Type" }, "dm-openapi"]
         },
-        {
-            "component": "text",
-            "name": "dm_alttext",
-            "label": "Alt Text",
-            "valueType": "string"
-        }
+        "component": "select",
+        "name": "flip",
+        "value": "",
+        "label": "Flip",
+        "description": "Select the flip for the image either vertical or horizontal or vertical & horizontal",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "None",
+            "value": ""
+          },
+          {
+            "name": "Vertical",
+            "value": "v"
+          },
+          {
+            "name": "Horizontal",
+            "value": "h"
+          },
+          {
+            "name": "Horizontal & Vertical",
+            "value": "hv"
+          }
+        ]
+      },
+      {
+        "condition": {
+          "===": [{ "var": "delivery_Type" }, "dm-openapi"]
+        },
+        "component": "text",
+        "name": "crop",
+        "value": "",
+        "label": "Crop",
+        "description": "Crop the final image using four values: left, top, width, and height, all in percentages. For example, 10p,10p,50p,50p means crop the image starting 10% from the left and top, and take 50% of the image's width and height.",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "dm_alttext",
+        "label": "Alt Text",
+        "valueType": "string"
+      }
     ]
   },
   {
-      "id": "search",
-      "fields": [
-        {
-          "component": "aem-content",
-          "name": "searchPath",
-          "label": "Search Path"
-        },
-        {
-          "component": "select",
-          "name": "searchstyle",
-          "label": "Search Style",
-          "options": [
-            {
-              "name": "Search Bar",
-              "value": "search-bar"
-            },
-            {
-              "name": "Search Icon",
-              "value": "search-icon"
-            }
-          ]
-        }
-      ]
+    "id": "search",
+    "fields": [
+      {
+        "component": "aem-content",
+        "name": "searchPath",
+        "label": "Search Path"
+      },
+      {
+        "component": "select",
+        "name": "searchstyle",
+        "label": "Search Style",
+        "options": [
+          {
+            "name": "Search Bar",
+            "value": "search-bar"
+          },
+          {
+            "name": "Search Icon",
+            "value": "search-icon"
+          }
+        ]
+      }
+    ]
   },
   {
     "id": "carousel",
@@ -923,12 +923,12 @@
     "id": "video",
     "fields": [
       {
-       "component": "text",
-       "valueType": "string",
-       "required": true,
-       "description" : "Any direct full URL of publicly available video. e.g. video URL of aem publish instance, Dynamic Media etc.",
-       "name": "videoUrl",
-       "label": "Video Url"
+        "component": "text",
+        "valueType": "string",
+        "required": true,
+        "description": "Any direct full URL of publicly available video. e.g. video URL of aem publish instance, Dynamic Media etc.",
+        "name": "videoUrl",
+        "label": "Video Url"
       }
     ]
   },
@@ -1001,60 +1001,60 @@
   {
     "id": "dm-template",
     "fields": [
-        {
-          "component": "select",
-          "name": "config_source",
-          "value": "inline",
-          "label": "Template Config Source",
-          "description": "Choose the source to provide the template path and variable configurations.",
-          "valueType": "string",
-          "options": [
-            {
-              "name": "Content Fragment",
-              "value": "cf"
-            },
-            {
-              "name": "Inline",
-              "value": "inline"
-            }
-          ]
-        },
-        {
-          "condition": {
-            "===": [{ "var": "config_source" }, "inline"]
+      {
+        "component": "select",
+        "name": "config_source",
+        "value": "inline",
+        "label": "Template Config Source",
+        "description": "Choose the source to provide the template path and variable configurations.",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Content Fragment",
+            "value": "cf"
           },
-          "component": "text",
-          "name": "dm_template_url",
-          "label": "Template Path",
-          "description": "Provide full URL for the Dynamic Media Template. Templates should have variables which can be configured in Variable Mappings field.",
-          "valueType": "string"
-        },
-        {
-          "condition": {
-            "===": [{ "var": "config_source" }, "inline"]
-          },          
-          "component": "text",
-          "valueType": "string",
-          "name": "var_mapping",
-          "value": "",
-          "multi": true,
-          "label": "Variable Mappings",
-          "description": "Provide variable values. These values should be exposed in the DM template inorder to get replaced e.g. $leftImage=DynamicMediaNA/adobestock-167833331"
-        },
-        {
-          "condition": {
-            "===": [{ "var": "config_source" }, "cf"]
-          },
-          "component": "aem-content",
-          "name": "reference",
-          "label": "Reference",
-          "valueType": "string",
-          "required": true,
-          "validation": {
-              "rootPath": "/content/dam"
+          {
+            "name": "Inline",
+            "value": "inline"
           }
+        ]
+      },
+      {
+        "condition": {
+          "===": [{ "var": "config_source" }, "inline"]
+        },
+        "component": "text",
+        "name": "dm_template_url",
+        "label": "Template Path",
+        "description": "Provide full URL for the Dynamic Media Template. Templates should have variables which can be configured in Variable Mappings field.",
+        "valueType": "string"
+      },
+      {
+        "condition": {
+          "===": [{ "var": "config_source" }, "inline"]
+        },
+        "component": "text",
+        "valueType": "string",
+        "name": "var_mapping",
+        "value": "",
+        "multi": true,
+        "label": "Variable Mappings",
+        "description": "Provide variable values. These values should be exposed in the DM template inorder to get replaced e.g. $leftImage=DynamicMediaNA/adobestock-167833331"
+      },
+      {
+        "condition": {
+          "===": [{ "var": "config_source" }, "cf"]
+        },
+        "component": "aem-content",
+        "name": "reference",
+        "label": "Reference",
+        "valueType": "string",
+        "required": true,
+        "validation": {
+          "rootPath": "/content/dam"
         }
-      ]
+      }
+    ]
   },
   {
     "id": "teaser",
@@ -1189,7 +1189,7 @@
         "component": "select",
         "name": "ctastyle",
         "label": "CTA Style",
-         "options": [
+        "options": [
           {
             "name": "Link",
             "value": "link"
@@ -6472,6 +6472,188 @@
         "value": "",
         "label": "Text",
         "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "timeline",
+    "fields": [
+      {
+        "component": "container",
+        "name": "basic",
+        "label": "Basic",
+        "collapsible": false,
+        "fields": [
+          {
+            "component": "text",
+            "name": "name",
+            "label": "Name",
+            "valueType": "string",
+            "required": true,
+            "valueFormat": "regexp",
+            "validation": {
+              "regExp": "^[^$].*",
+              "customErrorMsg": "Name cannot start with $"
+            }
+          },
+          {
+            "component": "text",
+            "name": "jcr:title",
+            "label": "Title",
+            "valueType": "string"
+          },
+          {
+            "component": "boolean",
+            "name": "hideTitle",
+            "label": "Hide title",
+            "valueType": "boolean"
+          },
+          {
+            "component": "datasource-bindref",
+            "name": "dataRef",
+            "label": "Bind reference",
+            "valueType": "string"
+          },
+          {
+            "component": "boolean",
+            "name": "unboundFormElement",
+            "label": "Mark as Unbound Form Element",
+            "valueType": "boolean"
+          },
+          {
+            "component": "boolean",
+            "name": "visible",
+            "label": "Show Component",
+            "valueType": "boolean",
+            "value": true
+          },
+          {
+            "component": "boolean",
+            "name": "enabled",
+            "label": "Enable Component",
+            "valueType": "boolean",
+            "value": true
+          },
+          {
+            "component": "boolean",
+            "name": "readOnly",
+            "label": "Read-only",
+            "valueType": "boolean"
+          },
+          {
+            "component": "select",
+            "name": "colspan",
+            "label": "Column Span",
+            "valueType": "string",
+            "value": "12",
+            "options": [
+              {
+                "name": "1 column",
+                "value": "1"
+              },
+              {
+                "name": "2 column",
+                "value": "2"
+              },
+              {
+                "name": "3 column",
+                "value": "3"
+              },
+              {
+                "name": "4 column",
+                "value": "4"
+              },
+              {
+                "name": "5 column",
+                "value": "5"
+              },
+              {
+                "name": "6 column",
+                "value": "6"
+              },
+              {
+                "name": "7 column",
+                "value": "7"
+              },
+              {
+                "name": "8 column",
+                "value": "8"
+              },
+              {
+                "name": "9 column",
+                "value": "9"
+              },
+              {
+                "name": "10 column",
+                "value": "10"
+              },
+              {
+                "name": "11 column",
+                "value": "11"
+              },
+              {
+                "name": "12 column",
+                "value": "12"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "component": "container",
+        "name": "help",
+        "label": "Help Content",
+        "collapsible": true,
+        "fields": [
+          {
+            "component": "richtext",
+            "name": "description",
+            "label": "Help text",
+            "valueType": "string"
+          },
+          {
+            "component": "richtext",
+            "name": "tooltip",
+            "label": "Short description",
+            "valueType": "string"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "timeline-item",
+    "fields": [
+      {
+        "component": "text",
+        "name": "year",
+        "label": "Year",
+        "valueType": "string",
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Headline",
+        "valueType": "string",
+        "required": true
+      },
+      { "component": "richtext", "name": "body", "label": "Body" },
+      {
+        "component": "reference",
+        "name": "image",
+        "label": "Image",
+        "valueType": "string"
+      },
+      {
+        "component": "select",
+        "name": "priority",
+        "label": "Image Fetch Priority",
+        "valueType": "string",
+        "options": [
+          { "name": "Default", "value": "" },
+          { "name": "High (first item)", "value": "high" }
+        ]
       }
     ]
   }

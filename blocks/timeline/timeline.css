@@ -1,0 +1,187 @@
+/* Page (or main wrapper) drives the scroll + snapping */
+main {
+  scroll-snap-type: y mandatory;
+  scroll-snap-stop: normal; /* prevents extra resistance */
+  /* optional: smooth scrolling */
+  /* scroll-behavior: smooth; */
+}
+
+/* ===== Full-screen snap timeline with text overlay ===== */
+
+:root {
+  --t-pad: clamp(16px, 4vw, 48px);
+  --t-maxw: 960px;
+}
+
+.timeline {
+  position: relative;
+  height: auto; /* was: 100svh */
+  min-height: 0;
+  overflow: visible; /* was: auto */
+  /* overflow-y: auto; */
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: auto;
+  scroll-snap-type: y mandatory; /* snap per panel */
+  scroll-snap-stop: always; /* always stop on a snap target */
+  background: #000; /* safe fallback */
+}
+
+/* Each panel fills the viewport and snaps */
+.timeline .t-item {
+  position: relative;
+  height: 100svh;
+  scroll-snap-align: start;
+  contain: paint;
+  /* opacity: 0.35;  */
+  /* transition: opacity 260ms ease, transform 260ms ease; */
+  /* transform: scale(0.985); */
+  /* remove scale animation to reduce perceived “drag” */
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+
+/* Only the snapped/active panel looks “fully visible” */
+.timeline .t-item.is-active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Media fills the entire viewport behind content */
+.timeline .t-media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.timeline .t-media img,
+.timeline .t-media picture,
+.timeline .t-media video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Readability gradient over media */
+.timeline .t-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.55) 0%,
+    rgba(0, 0, 0, 0.25) 40%,
+    rgba(0, 0, 0, 0.7) 100%
+  );
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Text overlay */
+.timeline .t-content {
+  position: absolute;
+  z-index: 2;
+  inset-inline: var(--t-pad);
+  bottom: clamp(48px, 14vh, 160px);
+  max-width: var(--t-maxw);
+  color: #fff;
+  display: grid;
+  gap: clamp(8px, 2vh, 16px);
+}
+
+.timeline .t-year {
+  font: 700 clamp(12px, 2vw, 14px) / 1.2 ui-sans-serif, system-ui, -apple-system,
+    Segoe UI, Roboto, Arial;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.9;
+}
+.timeline .t-title {
+  font: 800 clamp(28px, 6vw, 56px) / 1.05 ui-sans-serif, system-ui,
+    -apple-system, Segoe UI, Roboto, Arial;
+  margin: 0;
+  text-wrap: balance;
+}
+.timeline .t-body {
+  font-size: clamp(14px, 2.2vw, 18px);
+  line-height: 1.6;
+  opacity: 0.95;
+}
+.timeline .t-body p {
+  margin: 0 0 0.8em;
+}
+
+/* Alternate content side on desktop */
+@media (min-width: 900px) {
+  .timeline .t-content {
+    max-width: 48vw;
+  }
+  .timeline .t-item[data-side='left'] .t-content {
+    left: var(--t-pad);
+    right: auto;
+  }
+  .timeline .t-item[data-side='right'] .t-content {
+    right: var(--t-pad);
+    left: auto;
+    text-align: start;
+  }
+}
+
+/* In-editor: disable inner scroller to avoid nested scroll loop */
+[data-aue-present] .timeline {
+  height: auto !important;
+  overflow: visible !important;
+  scroll-snap-type: none !important;
+  scroll-snap-stop: normal !important;
+}
+
+.timeline .t-exit {
+  height: 1px;
+}
+/* ==== UNIVERSAL EDITOR SAFE MODE ==== */
+html[data-aue-present] main,
+body[data-aue-present] main,
+[data-aue-present] main,
+html[data-aue-edit-mode] main,
+body[data-aue-edit-mode] main {
+  scroll-snap-type: none !important;
+}
+
+html[data-aue-present] .timeline,
+body[data-aue-present] .timeline,
+[data-aue-present] .timeline,
+html[data-aue-edit-mode] .timeline,
+body[data-aue-edit-mode] .timeline {
+  height: auto !important;
+  min-height: 0 !important;
+  overflow: visible !important;
+}
+
+/* No transforms/animations/snap inside UE */
+html[data-aue-present] .timeline .t-item,
+[data-aue-present] .timeline .t-item,
+html[data-aue-edit-mode] .timeline .t-item {
+  height: auto !important;
+  transform: none !important;
+  transition: none !important;
+  opacity: 1 !important;
+  scroll-snap-align: none !important;
+}
+
+/* Media/content become normal flow in UE (no absolute overlay) */
+html[data-aue-present] .timeline .t-media,
+[data-aue-present] .timeline .t-media {
+  position: relative !important;
+  height: 40vh !important;
+}
+html[data-aue-present] .timeline .t-content,
+[data-aue-present] .timeline .t-content {
+  position: relative !important;
+  inset: auto !important;
+  margin: var(--t-pad) !important;
+}
+html[data-aue-present] .timeline .t-scrim,
+[data-aue-present] .timeline .t-scrim {
+  display: none !important;
+}
