@@ -513,43 +513,14 @@ picture {
 /* Live site (keeps normal fullscreen) */
 .hero.block.fullscreen {
   width: 100%;
-  /* min-height: 100dvh;  */
+  min-height: 832px;
+  height: 832px;
   max-width: 100%;
   position: relative;
   overflow: hidden;
   display: flex;
   align-items: flex-end;
   justify-content: flex-start;
-}
-
-/* UE/iframe only: stop using vh; use the locked pixel value instead */
-html.is-iframe .hero.block.fullscreen {
-  height: auto !important;
-  min-height: var(
-    --ue-initial-vh,
-    720px
-  ) !important; /* fallback if var missing */
-  margin: 0 !important; /* avoid margin adding extra scrollHeight */
-  overflow: clip !important; /* contain children from expanding box */
-}
-
-/* Production: safer viewport unit */
-@supports (min-height: 100dvh) {
-  .hero.block.fullscreen {
-    min-height: 100dvh;
-  }
-}
-
-/* Authoring-safe global fallback (works everywhere, no JS needed) */
-@supports not (min-height: 100dvh) {
-  .hero.block.fullscreen {
-    min-height: min(100vh, 1000px);
-  }
-}
-
-/* If UE still inflates, just drop vh completely: */
-.hero.block.fullscreen {
-  min-height: clamp(560px, 800px, 1000px);
 }
 
 .hero.block.fullscreen > div:nth-child(2) {

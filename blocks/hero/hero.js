@@ -10,9 +10,6 @@ import { readBlockConfig } from '../../scripts/aem.js';
  * @param {Element} block
  */
 export default function decorate(block) {
-  const isUePresent = !!document.querySelector('.in-iframe');
-  console.log('in-iframe present on page:', isUePresent);
-
   // Get the enable underline setting from the block content (3rd div)
   const enableUnderline =
     block.querySelector(':scope div:nth-child(3) > div')?.textContent?.trim() ||
