@@ -683,6 +683,10 @@
           {
             "name": "Image-Background Text-Right",
             "value": "image-background-text-right"
+          },
+          {
+            "name": "Full Screen",
+            "value": "fullscreen"
           }
         ]
       },

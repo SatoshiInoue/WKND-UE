@@ -27,6 +27,19 @@ import {
   createSource,
 } from './utils.js';
 
+// UE/iframe guard + initial viewport lock
+(function () {
+  if (window.self !== window.top) {
+    const root = document.documentElement;
+    root.classList.add('is-iframe');
+
+    // Lock the FIRST innerHeight in pixels; DO NOT update on resize (avoids feedback loop)
+    if (!root.style.getPropertyValue('--ue-initial-vh')) {
+      root.style.setProperty('--ue-initial-vh', window.innerHeight + 'px');
+    }
+  }
+})();
+
 /**
  * Moves all the attributes from a given elmenet to another given element.
  * @param {Element} from the element to copy attributes from

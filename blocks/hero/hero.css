@@ -36,12 +36,12 @@
 /* Special underline (only for h1 by default) */
 .hero h1::after {
   background-color: var(--main-accent-color);
-  content: "";
+  content: '';
   display: block;
   height: 5px;
   margin: 20px auto 30px;
   width: 128px;
-  transition: width .4s ease-in-out;
+  transition: width 0.4s ease-in-out;
 }
 
 /* Remove underline when class applied */
@@ -75,7 +75,6 @@
    Buttons
 --------------------------- */
 
-
 /* Primary CTA */
 .hero-wrapper .button-container.cta-button a.button {
   background-color: var(--main-accent-color);
@@ -83,7 +82,7 @@
 }
 
 .hero-wrapper .button-container.cta-button a.button::after {
-  content: "\f105";
+  content: '\f105';
   font-family: 'Font Awesome 5 Solid';
   font-size: 20px;
   margin-left: 8px;
@@ -112,7 +111,7 @@
 }
 
 .hero-wrapper .button-container.cta-button-secondary a.button::after {
-  content: "\f105";
+  content: '\f105';
   font-family: 'Font Awesome 5 Solid';
   font-size: 20px;
   margin-left: 8px;
@@ -152,7 +151,6 @@
   padding: 0;
   min-height: auto;
 }
-
 
 .hero.image-left {
   flex-direction: row;
@@ -239,7 +237,7 @@
 }
 
 picture {
-    line-height: 0;
+  line-height: 0;
 }
 /* Box shadow for layout variations */
 .hero.image-left,
@@ -266,9 +264,10 @@ picture {
   width: 100%;
   max-width: none;
   color: var(--text-color);
-    text-shadow: unset;
+  text-shadow: unset;
 }
-.hero.image-left h1,.hero.image-right h1{
+.hero.image-left h1,
+.hero.image-right h1 {
   color: var(--text-color);
   text-shadow: unset;
 }
@@ -324,34 +323,43 @@ picture {
 .hero.image-bottom h4,
 .hero.image-bottom h5,
 .hero.image-bottom h6,
-.hero.image-bottom p{
+.hero.image-bottom p {
   text-align: center;
   max-width: none;
   color: var(--text-color);
-    text-shadow: unset;
+  text-shadow: unset;
 }
 /* --------------------------
    Responsive
 --------------------------- */
 @media (width >= 900px) {
-  .hero { padding: 40px 32px; }
-  .hero-wrapper a.button { padding: 14px 28px; font-size: 18px; }
+  .hero {
+    padding: 40px 32px;
+  }
+  .hero-wrapper a.button {
+    padding: 14px 28px;
+    font-size: 18px;
+  }
 }
 
 @media (width < 1024px) {
-  .hero { min-height: 650px; }
-  
+  .hero {
+    min-height: 650px;
+  }
+
   .hero.image-background-text-left {
     padding: 50px 30px;
   }
-  
+
   .hero.image-background-text-right {
     padding: 50px 30px;
   }
 }
 
 @media (width < 768px) {
-  .hero { min-height: 600px; }
+  .hero {
+    min-height: 600px;
+  }
 
   .hero.image-left,
   .hero.image-right {
@@ -391,13 +399,13 @@ picture {
   .hero.image-bottom picture {
     height: 250px;
   }
-  
+
   /* Mobile adjustments for image-background-text-left */
   .hero.image-background-text-left {
     padding: 40px 20px;
     text-align: center;
   }
-  
+
   .hero.image-background-text-left h1,
   .hero.image-background-text-left h2,
   .hero.image-background-text-left h3,
@@ -407,17 +415,17 @@ picture {
   .hero.image-background-text-left p {
     text-align: center;
   }
-  
+
   .hero.image-background-text-left .button-container {
     text-align: center;
   }
-  
+
   /* Mobile adjustments for image-background-text-right */
   .hero.image-background-text-right {
     padding: 40px 20px;
     text-align: center;
   }
-  
+
   .hero.image-background-text-right h1,
   .hero.image-background-text-right h2,
   .hero.image-background-text-right h3,
@@ -428,7 +436,7 @@ picture {
   .hero.image-background-text-right .button-container {
     text-align: left;
   }
-  
+
   .hero.image-background-text-right .button-container {
     text-align: center;
   }
@@ -478,16 +486,63 @@ picture {
   border-color: var(--dark-color);
 }
 
-.hero.block.overlay div:nth-child(2),.hero.image-background-text-left div:nth-child(2),.hero.image-background-text-right div:nth-child(2) {
+.hero.block.overlay div:nth-child(2),
+.hero.image-background-text-left div:nth-child(2),
+.hero.image-background-text-right div:nth-child(2) {
   padding: 20px;
   background: rgb(0 0 0 / 50%);
 }
 
 /*button theme hero specific*/
-.hero.block.overlay .button-container.cta-link a.button,.hero.image-background-text-left .button-container.cta-link a.button,.hero.image-background-text-right .button-container.cta-link a.button {
+.hero.block.overlay .button-container.cta-link a.button,
+.hero.image-background-text-left .button-container.cta-link a.button,
+.hero.image-background-text-right .button-container.cta-link a.button {
   color: var(--text-light);
 }
 
-.hero.block.overlay .button-container.cta-link a.button::after  ,.hero.image-background-text-left .button-container.cta-link a.button::after,.hero.image-background-text-right .button-container.cta-link a.button::after  {
+.hero.block.overlay .button-container.cta-link a.button::after,
+.hero.image-background-text-left .button-container.cta-link a.button::after,
+.hero.image-background-text-right .button-container.cta-link a.button::after {
   color: var(--text-light);
+}
+
+/* --------------------------
+   Fullscreen Modifier
+--------------------------- */
+
+/* Live site (keeps normal fullscreen) */
+.hero.block.fullscreen {
+  width: 100%;
+  min-height: 100dvh; /* use dvh in production */
+  max-width: 100%;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+}
+
+/* UE/iframe only: stop using vh; use the locked pixel value instead */
+html.is-iframe .hero.block.fullscreen {
+  height: auto !important;
+  min-height: var(
+    --ue-initial-vh,
+    720px
+  ) !important; /* fallback if var missing */
+  margin: 0 !important; /* avoid margin adding extra scrollHeight */
+  overflow: clip !important; /* contain children from expanding box */
+}
+.hero.block.fullscreen > div:nth-child(2) {
+  padding: 40px;
+  max-width: 600px;
+  background: rgba(0, 0, 0, 0.5);
+}
+.hero.block.fullscreen > div h1,
+.hero.block.fullscreen > div h2,
+.hero.block.fullscreen > div h3,
+.hero.block.fullscreen > div h4,
+.hero.block.fullscreen > div h5,
+.hero.block.fullscreen > div h6,
+.hero.block.fullscreen > div p {
+  text-align: left;
 }
