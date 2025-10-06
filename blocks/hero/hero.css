@@ -532,6 +532,7 @@ html.is-iframe .hero.block.fullscreen {
   margin: 0 !important; /* avoid margin adding extra scrollHeight */
   overflow: clip !important; /* contain children from expanding box */
 }
+
 .hero.block.fullscreen > div:nth-child(2) {
   padding: 40px;
   max-width: 600px;
