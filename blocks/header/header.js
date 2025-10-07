@@ -373,7 +373,7 @@ async function fetchingPlaceholdersData() {
 }
 
 async function addLogoLink(langCode) {
-  //urn:aemconnection:/content/wknd-universal/language-masters/en/magazine/jcr:content
+  //urn:aemconnection:/content/automotive-ue/language-masters/en/magazine/jcr:content
   const currentLang = langCode || getLanguage();
   const aueResource = document.body
     .getAttribute('data-aue-resource')
